@@ -1,0 +1,52 @@
+#: templates/index.html:7
+msgid "ML Switch App"
+msgstr ""
+
+#: templates/index.html:14
+msgid "This Flask-based web application can train and evaluate different supervised ML models on various public datasets. Select a dataset and model type below to see the training and test metrics."
+msgstr ""
+
+#: templates/index.html:23
+msgid "Select Dataset:"
+msgstr ""
+
+#: templates/index.html:25
+msgid "Diabetes (Regression)"
+msgstr ""
+
+#: templates/index.html:26
+msgid "Iris (Classification)"
+msgstr ""
+
+#: templates/index.html:33
+msgid "Select Model Type:"
+msgstr ""
+
+#: templates/index.html:35
+msgid "Regression"
+msgstr ""
+
+#: templates/index.html:36
+msgid "Classification"
+msgstr ""
+
+#: templates/index.html:39
+msgid "Run"
+msgstr ""
+
+#: templates/index.html:45
+msgid "Training Score"
+msgstr ""
+
+#: templates/index.html:46
+msgid "Test Score"
+msgstr ""
+
+
+#: templates/index.html:...
+msgid "R2 Score"
+msgstr ""
+
+#: templates/index.html:...
+msgid "Accuracy"
+msgstr ""

@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="{{ locale }}">
+<head>
+  <meta charset="UTF-8">
+  <!-- Bootstrap CSS -->
+  <link id="theme-stylesheet" rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css">
+  <!-- Bootstrap Icons -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+  <title>{{ _('ML Switch App') }}</title>
+  <script>
+    document.addEventListener("DOMContentLoaded", function() {
+      const datasetSelect = document.getElementById("dataset");
+      const modelTypeSelect = document.getElementById("model_type");
+      const themeSwitch = document.getElementById("themeSwitch");
+
+      // Define model options in JavaScript for easy access
+      const modelOptions = {
+        "regression": [
+          {value: "linear_regression", text: "{{ _('Linear Regression') }}"},
+          {value: "decision_tree", text: "{{ _('Decision Tree Regressor') }}"}
+          // Add more regression models here
+        ],
+        "classification": [
+          {value: "logistic_regression", text: "{{ _('Logistic Regression') }}"},
+          {value: "decision_tree_classifier", text: "{{ _('Decision Tree Classifier') }}"}
+          // Add more classification models here
+        ]
+      };
+
+      // Function to update model types based on selected dataset
+      function updateModelTypes() {
+        const selectedDataset = datasetSelect.value;
+        let datasetType = "";
+
+        if (selectedDataset === "diabetes") {
+          datasetType = "regression";
+        } else if (selectedDataset === "iris") {
+          datasetType = "classification";
+        }
+
+        // Clear existing options
+        modelTypeSelect.innerHTML = "";
+
+        if (datasetType && modelOptions[datasetType]) {
+          modelOptions[datasetType].forEach(function(model) {
+            const option = document.createElement("option");
+            option.value = model.value;
+            option.text = model.text;
+            modelTypeSelect.appendChild(option);
+          });
+        } else {
+          // If no dataset is selected, disable the model type selector
+          const option = document.createElement("option");
+          option.value = "";
+          option.text = "{{ _('Please select a dataset first') }}";
+          option.disabled = true;
+          option.selected = true;
+          modelTypeSelect.appendChild(option);
+        }
+      }
+
+      // Initialize model types on page load
+      updateModelTypes();
+
+      // Update model types when dataset selection changes
+      datasetSelect.addEventListener("change", updateModelTypes);
+
+      // Dark Mode Toggle
+      const currentTheme = localStorage.getItem('theme') || 'light';
+      if (currentTheme === 'dark') {
+        document.body.classList.add('dark-mode');
+        themeSwitch.checked = true;
+      }
+
+      themeSwitch.addEventListener('change', function() {
+        if (this.checked) {
+          document.body.classList.add('dark-mode');
+          localStorage.setItem('theme', 'dark');
+        } else {
+          document.body.classList.remove('dark-mode');
+          localStorage.setItem('theme', 'light');
+        }
+      });
+    });
+  </script>
+  <style>
+    /* Custom Styles */
+    body {
+      transition: background-color 0.3s, color 0.3s;
+    }
+    .model-title {
+      font-size: 1.75rem;
+      font-weight: bold;
+      margin-top: 1.5rem;
+      margin-bottom: 1rem;
+    }
+    .score-title {
+      font-size: 1.25rem;
+      font-weight: semi-bold;
+      margin-top: 1rem;
+      margin-bottom: 0.5rem;
+    }
+    .card-custom {
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+      border-radius: 10px;
+      transition: background-color 0.3s, box-shadow 0.3s;
+    }
+    /* Dark Mode Styles */
+    .dark-mode {
+      background-color: #121212;
+      color: #ffffff;
+    }
+    .dark-mode .card-custom {
+      background-color: #1e1e1e;
+      box-shadow: 0 4px 8px rgba(255,255,255,0.1);
+    }
+    .dark-mode .form-select, .dark-mode .form-label {
+      background-color: #2c2c2c;
+      color: #ffffff;
+      border-color: #444444;
+    }
+    .dark-mode .form-select:focus {
+      background-color: #3a3a3a;
+      color: #ffffff;
+      border-color: #666666;
+    }
+    .dark-mode .btn-primary {
+      background-color: #bb86fc;
+      border-color: #bb86fc;
+    }
+    .dark-mode .btn-primary:hover {
+      background-color: #9f66f0;
+      border-color: #8a4fe2;
+    }
+    .dark-mode .btn-secondary {
+      background-color: #03dac6;
+      border-color: #03dac6;
+    }
+    .dark-mode .btn-secondary:hover {
+      background-color: #02b6af;
+      border-color: #02ac9e;
+    }
+    .dark-mode .alert {
+      background-color: #333333;
+      color: #ffffff;
+      border-color: #444444;
+    }
+    .dark-mode .badge.bg-success {
+      background-color: #03dac6;
+    }
+    .dark-mode .badge.bg-info {
+      background-color: #bb86fc;
+    }
+    .dark-mode a {
+      color: #bb86fc;
+    }
+    .dark-mode .btn-close {
+      filter: invert(1);
+    }
+    .clickable-image:hover {
+      opacity: 0.8;
+      transition: opacity 0.3s;
+    }
+
+    /* Custom Styles for Language Buttons */
+    /* Default Language Button Styles */
+    .btn-language {
+      color: #ffffff;
+      background-color: #007bff; /* Bootstrap primary blue */
+      border-color: #007bff;
+    }
+
+    /* Hover Effect for Language Buttons */
+    .btn-language:hover {
+      background-color: #0056b3;
+      border-color: #004085;
+    }
+
+    /* Dark Mode Styles for Language Buttons */
+    .dark-mode .btn-language {
+      background-color: #1f6feb; /* A more appealing blue for dark mode */
+      border-color: #1f6feb;
+    }
+
+    .dark-mode .btn-language:hover {
+      background-color: #0d5bb5;
+      border-color: #0a4e99;
+    }
+
+    /* Plot Styling */
+    .plot-container {
+      text-align: center;
+      margin-top: 2rem;
+    }
+    .plot-container img {
+      max-width: 100%;
+      height: auto;
+      border-radius: 8px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    }
+
+  </style>
+</head>
+<body>
+  <div class="container my-5">
+    <!-- Header with Dark Mode Switch and Custom Language Buttons -->
+    <div class="d-flex justify-content-between align-items-center mb-4">
+      <div>
+        <a href="{{ url_for('change_language', language='en') }}" class="btn btn-language btn-sm me-2">English</a>
+        <a href="{{ url_for('change_language', language='no') }}" class="btn btn-language btn-sm">Norsk</a>
+      </div>
+      <div class="form-check form-switch">
+        <input class="form-check-input" type="checkbox" id="themeSwitch">
+        <label class="form-check-label" for="themeSwitch">{{ _('Dark Mode') }}</label>
+      </div>
+    </div>
+
+    <!-- Flash Messages -->
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+        {% for category, message in messages %}
+          <div class="alert alert-{{ category }} alert-dismissible fade show" role="alert">
+            {{ message }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="{{ _('Close') }}"></button>
+          </div>
+        {% endfor %}
+      {% endif %}
+    {% endwith %}
+
+    <div class="card card-custom">
+      <div class="card-body">
+        <!-- Image and Description -->
+        <div class="text-center mb-4">
+          <a href="https://henvag.github.io" target="_blank" rel="noopener noreferrer">
+            <img src="{{ url_for('static', filename='HenvagDev.png') }}" alt="HenvagDev" class="img-fluid clickable-image" style="max-height: 150px;">
+          </a>
+        </div>
+        <h2 class="text-center mb-4">{{ _('This Flask-based web application can train and evaluate different supervised ML models on various public datasets. Select a dataset and model type below to see the training and test metrics.') }}</h2>
+        <!-- Selection Form -->
+        <form method="POST" class="mb-4">
+          <div class="row g-3">
+            <div class="col-md-6">
+              <label for="dataset" class="form-label">{{ _('Select Dataset:') }}</label>
+              <select id="dataset" name="dataset" class="form-select">
+                <option value="diabetes" {% if chosen_dataset=="diabetes" %}selected{% endif %}>{{ _('Diabetes (Regression)') }}</option>
+                <option value="iris" {% if chosen_dataset=="iris" %}selected{% endif %}>{{ _('Iris (Classification)') }}</option>
+                <!-- Add more datasets here -->
+              </select>
+            </div>
+            <div class="col-md-6">
+              <label for="model_type" class="form-label">{{ _('Select Model Type:') }}</label>
+              <select id="model_type" name="model_type" class="form-select">
+                {% if chosen_dataset %}
+                  {% set dataset_type = "regression" if chosen_dataset == "diabetes" else "classification" %}
+                  {% for model in model_options[dataset_type] %}
+                    <option value="{{ model.value }}" {% if chosen_model_type == model.value %}selected{% endif %}>{{ model.name }}</option>
+                  {% endfor %}
+                {% else %}
+                  <option value="" disabled selected>{{ _('Please select a dataset first') }}</option>
+                {% endif %}
+              </select>
+            </div>
+          </div>
+          <div class="d-grid gap-2 mt-4">
+            <button type="submit" class="btn btn-primary btn-lg">{{ _('Run') }}</button>
+          </div>
+        </form>
+
+        <!-- Display Scores -->
+        {% if train_score is not none and test_score is not none %}
+          <div class="text-center">
+            {% if chosen_model_name %}
+              <h4 class="model-title">{{ _('Selected Model') }}: {{ chosen_model_name }}</h4>
+            {% endif %}
+            <div class="mb-3">
+              <div class="score-title">{{ _('Training Score') }} ({{ metric_name_train }}):</div>
+              <span class="badge bg-success fs-6">{{ train_score }}</span>
+            </div>
+            <div class="mb-3">
+              <div class="score-title">{{ _('Test Score') }} ({{ metric_name_test }}):</div>
+              <span class="badge bg-info fs-6">{{ test_score }}</span>
+            </div>
+          </div>
+
+          <!-- Plot Display -->
+          <div class="plot-container">
+            <img src="data:image/png;base64,{{ plot_url }}" alt="{{ _('Plot') }}">
+          </div>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+
+  <!-- Bootstrap JS (for alert dismissing and tooltips) -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

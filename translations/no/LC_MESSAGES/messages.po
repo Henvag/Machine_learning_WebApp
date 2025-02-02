@@ -1,0 +1,64 @@
+# translations/no/LC_MESSAGES/messages.po
+
+msgid ""
+msgstr ""
+"Project-Id-Version: PROJECT VERSION\n"
+"POT-Creation-Date: 2025-01-15 16:36+0000\n"
+"PO-Revision-Date: 2025-01-15 16:36+0000\n"
+"Language: no\n"
+"Language-Team: Norwegian\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: templates/index.html:7
+msgid "ML Switch App"
+msgstr "ML Bytte App"
+
+#: templates/index.html:14
+msgid "This Flask-based web application can train and evaluate different supervised ML models on various public datasets. Select a dataset and model type below to see the training and test metrics."
+msgstr "Dette er en Flask-basert webapplikasjon som kan trene og evaluere ulike supervised ML-modeller på forskjellige offentlige datasett. Velg et datasett og modelltype nedenfor for å se trenings- og testmetrikker."
+
+#: templates/index.html:23
+msgid "Select Dataset:"
+msgstr "Velg Datasett:"
+
+#: templates/index.html:25
+msgid "Diabetes (Regression)"
+msgstr "Diabetes (Regresjon)"
+
+#: templates/index.html:26
+msgid "Iris (Classification)"
+msgstr "Iris (Klassifisering)"
+
+#: templates/index.html:33
+msgid "Select Model Type:"
+msgstr "Velg Modelltype:"
+
+#: templates/index.html:35
+msgid "Regression"
+msgstr "Regresjon"
+
+#: templates/index.html:36
+msgid "Classification"
+msgstr "Klassifisering"
+
+#: templates/index.html:39
+msgid "Run"
+msgstr "Kjør"
+
+#: templates/index.html:45
+msgid "Training Score"
+msgstr "Treningsscore"
+
+#: templates/index.html:46
+msgid "Test Score"
+msgstr "Testscore"
+
+#: templates/index.html:...
+msgid "R2 Score"
+msgstr "R²-score"
+
+#: templates/index.html:...
+msgid "Accuracy"
+msgstr "Accuracy"
